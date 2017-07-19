@@ -1,8 +1,8 @@
 package tech.johari.gamelights
 
-import com.github.kittinunf.fuel.Fuel
 import me.skreem.event.Event
 import me.skreem.game.net.Server
+import tech.johari.gamelights.lights.LightManager
 
 import javax.imageio.ImageIO
 import javax.swing.*
@@ -11,11 +11,7 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.io.IOException
 
-class Main {
-    companion object {
-        val PI_LOCAL_IP = "192.168.0.101"
-        val PI_API_PORT = 5000
-    }
+class GameLights(val lights: LightManager) {
 
     var trayIcon: TrayIcon? = null
 
@@ -25,7 +21,7 @@ class Main {
     }
 
     private fun setupIntegration() {
-        Event.addListener(Listener())
+        Event.addListener(GameListener(lights))
         val server = Server()
         try {
             server.start(3000)
@@ -73,5 +69,5 @@ class Main {
 }
 
 fun main(vararg args: String) {
-    Main()
+    GameLights(LightManager("192.168.0.101", 5000))
 }

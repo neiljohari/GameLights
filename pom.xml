@@ -83,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>tech.johari.gamelights.MainKt</mainClass>
+                            <mainClass>tech.johari.gamelights.GameLightsKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
