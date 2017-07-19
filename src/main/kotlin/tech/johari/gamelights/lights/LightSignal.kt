@@ -1,5 +1,7 @@
-package tech.johari.GameLights
+package tech.johari.gamelights.lights
 
 enum class LightSignal {
+
     RED, YELLOW, GREEN, ALL
+
 }
