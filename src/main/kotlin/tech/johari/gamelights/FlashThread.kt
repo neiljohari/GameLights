@@ -1,6 +1,7 @@
-package tech.johari.GameLights
+package tech.johari.gamelights
 
 import com.github.kittinunf.fuel.Fuel
+import tech.johari.gamelights.Main
 
 class FlashThread(val color: LightSignal, val speed: Long) : Thread() {
     var state = true

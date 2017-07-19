@@ -4,9 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tech.johari</groupId>
-    <artifactId>GameLights</artifactId>
+    <groupId>tech.johari.gamelights</groupId>
+    <artifactId>gamelights</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>GameLights</name>
+
     <properties>
         <kotlin.version>1.1.1</kotlin.version>
         <java.version>1.8</java.version>
@@ -20,11 +22,13 @@
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+        <!-- CSGO Events -->
         <dependency>
             <groupId>me.skreem</groupId>
             <artifactId>CSGOEvents</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- HTTP Request Library -->
         <dependency>
             <groupId>com.github.kittinunf.fuel</groupId>
             <artifactId>fuel</artifactId>
@@ -79,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>tech.johari.GameLights.MainKt</mainClass>
+                            <mainClass>tech.johari.gamelights.MainKt</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

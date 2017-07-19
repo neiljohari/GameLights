@@ -1,4 +1,4 @@
-package tech.johari.GameLights
+package tech.johari.gamelights
 
 import com.github.kittinunf.fuel.Fuel
 import me.skreem.event.Event
