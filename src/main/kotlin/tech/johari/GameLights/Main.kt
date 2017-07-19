@@ -7,11 +7,17 @@ import me.skreem.game.net.Server
 import javax.imageio.ImageIO
 import javax.swing.*
 import java.awt.*
+import java.awt.event.ActionEvent
+import java.awt.event.ActionListener
 import java.io.IOException
 
 class Main {
+    companion object {
+        val PI_LOCAL_IP = "192.168.0.101"
+        val PI_API_PORT = 5000
+    }
+
     var trayIcon: TrayIcon? = null
-        private set
 
     init {
         setupTray()
@@ -26,12 +32,23 @@ class Main {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
 
     private fun setupTray() {
         if (SystemTray.isSupported()) {
             val tray = SystemTray.getSystemTray()
+            val exitListener = object : ActionListener {
+                override fun actionPerformed(e: ActionEvent) {
+                    val r = Runtime.getRuntime()
+                    println("Exiting...")
+                    System.exit(0)
+                }
+            }
+
+            val popup = PopupMenu()
+            val menuExit = MenuItem("Quit")
+            menuExit.addActionListener(exitListener);
+            popup.add(menuExit);
 
             var image: Image? = null
             try {
@@ -40,7 +57,7 @@ class Main {
                 e.printStackTrace()
             }
 
-            trayIcon = TrayIcon(image!!, "CSGO Alert")
+            trayIcon = TrayIcon(image!!, "CSGO Traffic Light Integration", popup)
             trayIcon!!.isImageAutoSize = true
 
 
@@ -49,12 +66,12 @@ class Main {
             } catch (e: AWTException) {
                 System.err.println("TrayIcon could not be added.")
             }
-
         }
+        trayIcon!!.displayMessage("CSGO Traffic Light Integration", "Traffic light will now be synced with game events.", TrayIcon.MessageType.INFO)
+
     }
 }
 
 fun main(vararg args: String) {
-    Fuel.get("http://192.168.0.101:5000/ha-api?cmd=0&scope=all").response { request, response, result -> }
     Main()
 }

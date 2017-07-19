@@ -15,16 +15,27 @@ import me.skreem.game.events.round.RoundFreezetimeEvent
 class Listener : Listener {
     var currentAnimation : FlashThread? = null
 
+
     private fun killAnimation() {
         if(currentAnimation != null) {
             currentAnimation!!.stop()
-            Fuel.get("http://192.168.0.101:5000/ha-api?cmd=0&scope=all").response { request, response, result -> }
         }
+        Fuel.get("http://${Main.PI_LOCAL_IP}:${Main.PI_API_PORT}/ha-api?cmd=0&scope=all").response { request, response, result -> }
+    }
+
+    init {
+        killAnimation()
+    }
+
+    @EventHandler
+    fun onRoundFreezetimeEvent(event: RoundFreezetimeEvent) {
+        killAnimation()
     }
 
     @EventHandler
     fun onBombPlantEvent(event: BombPlantEvent) {
         killAnimation()
+
         currentAnimation = FlashThread(LightSignal.YELLOW, 500)
         currentAnimation!!.start()
     }
@@ -32,6 +43,7 @@ class Listener : Listener {
     @EventHandler
     fun onBombExplodeEvent(event: BombExplodeEvent) {
         killAnimation()
+
         currentAnimation = FlashThread(LightSignal.ALL, 1000)
         currentAnimation!!.start()
     }
@@ -39,12 +51,9 @@ class Listener : Listener {
     @EventHandler
     fun onBombDefuseEvent(event: BombDefuseEvent) {
         killAnimation()
+
         currentAnimation = FlashThread(LightSignal.GREEN, 1000)
         currentAnimation!!.start()
     }
 
-    @EventHandler
-    fun onRoundFreezetimeEvent(event: RoundFreezetimeEvent) {
-        killAnimation()
-    }
 }

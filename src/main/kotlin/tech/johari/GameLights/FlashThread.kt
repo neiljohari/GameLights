@@ -9,10 +9,10 @@ class FlashThread(val color: LightSignal, val speed: Long) : Thread() {
     override fun run() {
         if(!state) {
             // Turn it on
-            Fuel.get("http://192.168.0.101:5000/ha-api?cmd=1&scope=${color.name.toLowerCase()}").response { request, response, result -> }
+            Fuel.get("http://${Main.PI_LOCAL_IP}:${Main.PI_API_PORT}/ha-api?cmd=1&scope=${color.name.toLowerCase()}").response { request, response, result -> }
         } else {
             // Turn it off
-            Fuel.get("http://192.168.0.101:5000/ha-api?cmd=0&scope=${color.name.toLowerCase()}").response { request, response, result -> }
+            Fuel.get("http://${Main.PI_LOCAL_IP}:${Main.PI_API_PORT}/ha-api?cmd=0&scope=${color.name.toLowerCase()}").response { request, response, result -> }
         }
         state = !state
         Thread.sleep(speed)
